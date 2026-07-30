@@ -1,5 +1,5 @@
 // Konfigurasi Gemini API Key
-const GEMINI_API_KEY = "AQ.Ab8RN6KeuIOsgJLQpk34X0Ns4fKwKfbr82M3qUWXWYc71K4Q1g";
+const GEMINI_API_KEY = "AIzaSy...AQ.Ab8RN6LdwPiGU3qUVAhADKOHp1fcEzl9TXFrjN9bOnYniZpgaQ";
 
 // Elemen DOM
 const inputText = document.getElementById('inputText');
@@ -52,7 +52,7 @@ translateBtn.addEventListener('click', async () => {
   outputText.innerText = "Menerjemahkan...";
 
   try {
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${AQ.Ab8RN6KeuIOsgJLQpk34X0Ns4fKwKfbr82M3qUWXWYc71K4Q1g}`, {
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -140,7 +140,7 @@ imageInput.addEventListener('change', async (e) => {
     outputText.innerText = "Membaca gambar & menerjemahkan...";
 
     try {
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${AQ.Ab8RN6KeuIOsgJLQpk34X0Ns4fKwKfbr82M3qUWXWYc71K4Q1g}`, {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
