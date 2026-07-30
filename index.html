@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bina Bahasa - Translator</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Documents</title>
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <button class="icon-btn"><i class="fa-solid fa-bars"></i></button>
+      <div class="brand">
+        <div class="logo-icon"><i class="fa-solid fa-language"></i></div>
+        <div>
+          <h1>Bina Bahasa</h1>
+          <span>Translator</span>
+        </div>
+      </div>
+      <button class="icon-btn crown-btn"><i class="fa-solid fa-crown"></i></button>
+    </header>
+
+    <div class="language-bar">
+      <select id="sourceLang" class="lang-select">
+        <option value="id-ID" selected>🇮🇩 Indonesia</option>
+        <option value="en-US">🇺🇸 English</option>
+        <option value="ja-JP">🇯🇵 Japan</option>
+        <option value="ko-KR">🇰🇷 Korea</option>
+      </select>
+
+      <button id="swapLangBtn" class="swap-btn">
+        <i class="fa-solid fa-arrow-right-arrow-left"></i>
+      </button>
+
+      <select id="targetLang" class="lang-select">
+        <option value="en-US" selected>🇺🇸 English</option>
+        <option value="id-ID">🇮🇩 Indonesia</option>
+        <option value="ja-JP">🇯🇵 Japan</option>
+        <option value="ko-KR">🇰🇷 Korea</option>
+      </select>
+    </div>
+
+    <div class="card input-card">
+      <div class="input-wrapper">
+        <textarea id="inputText" placeholder="Ketik teks di sini..."></textarea>
+        <button id="clearBtn" class="clear-btn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="card-actions">
+        <button id="listenInputBtn" class="pill-btn">
+          <i class="fa-solid fa-volume-high"></i> Dengar
+        </button>
+        <div class="right-actions">
+          <button id="voiceInputBtn" class="action-btn">
+            <i class="fa-solid fa-microphone"></i>
+            <span>Suara</span>
+          </button>
+          <label for="imageInput" class="action-btn">
+            <i class="fa-solid fa-image"></i>
+            <span>Gambar</span>
+            <input type="file" id="imageInput" accept="image/*" hidden>
+          </label>
+          <button id="copyInputBtn" class="action-btn">
+            <i class="fa-regular fa-copy"></i>
+            <span>Salin</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <button id="translateBtn" class="translate-btn">
+      <i class="fa-solid fa-wand-magic-sparkles"></i> Terjemahkan
+    </button>
+
+    <div class="card output-card">
+      <div class="output-header">
+        <span id="targetLangLabel" class="target-label"><i class="fa-solid fa-volume-high"></i> English</span>
+        <div class="output-top-actions">
+          <button class="icon-sub-btn"><i class="fa-regular fa-star"></i></button>
+          <button id="copyOutputBtn" class="icon-sub-btn"><i class="fa-regular fa-copy"></i></button>
+        </div>
+      </div>
+      
+      <p id="outputText" class="output-text">Hasil terjemahan akan muncul di sini...</p>
+
+      <div class="card-actions">
+        <button id="listenOutputBtn" class="pill-btn">
+          <i class="fa-solid fa-volume-high"></i> Dengar
+        </button>
+        <div class="right-actions">
+          <button id="copyOutputBtn2" class="pill-btn-secondary">
+            <i class="fa-regular fa-copy"></i> Salin
+          </button>
+          <button id="shareBtn" class="pill-btn-secondary">
+            <i class="fa-solid fa-share-nodes"></i> Bagikan
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <nav class="bottom-nav">
+      <button class="nav-item active">
+        <i class="fa-solid fa-house"></i>
+        <span>Beranda</span>
+      </button>
+      <button class="nav-item">
+        <i class="fa-regular fa-clock"></i>
+        <span>Riwayat</span>
+      </button>
+      
+      <div class="main-mic-wrapper">
+        <button id="mainMicBtn" class="main-mic-btn">
+          <i class="fa-solid fa-microphone"></i>
+        </button>
+        <span>Mikrofon</span>
+      </div>
+
+      <button class="nav-item">
+        <i class="fa-regular fa-star"></i>
+        <span>Favorit</span>
+      </button>
+      <button class="nav-item">
+        <i class="fa-solid fa-gear"></i>
+        <span>Pengaturan</span>
+      </button>
+    </nav>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
