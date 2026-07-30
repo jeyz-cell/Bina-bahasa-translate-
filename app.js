@@ -1,5 +1,5 @@
 // Konfigurasi Gemini API Key
-const GEMINI_API_KEY = "AIzaSy...AQ.Ab8RN6LdwPiGU3qUVAhADKOHp1fcEzl9TXFrjN9bOnYniZpgaQ";
+const GEMINI_API_KEY = "AQ.Ab8RN6LdwPiGU3qUVAhADKOHp1fcEzl9TXFrjN9bOnYniZpgaQ";
 
 // Elemen DOM
 const inputText = document.getElementById('inputText');
