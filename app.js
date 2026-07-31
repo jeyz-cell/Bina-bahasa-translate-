@@ -1,5 +1,5 @@
-// Konfigurasi Gemini API Key
-const GEMINI_API_KEY = "AQ.Ab8RN6ILd6-4i7iWQkxNjSDu1CwOUvqsoNJwRJuSupMx9CilJw";
+// Konfigurasi TranslateAPI Key
+const TRANSLATE_API_KEY = "ta_6bff395f10d062c53d1d222315802b0ec189f4619a18cd2563dd24c5";
 
 // Elemen DOM
 const inputText = document.getElementById('inputText');
@@ -41,38 +41,40 @@ function updateTargetLabel() {
 
 targetLang.addEventListener('change', updateTargetLabel);
 
-// 3. Terjemahan Menggunakan AI (Gemini API)
+// 3. Terjemahan Menggunakan TranslateAPI.ai
 translateBtn.addEventListener('click', async () => {
   const text = inputText.value.trim();
   if (!text) return alert("Silakan masukkan teks terlebih dahulu!");
 
-  const sourceName = sourceLang.options[sourceLang.selectedIndex].text;
-  const targetName = targetLang.options[targetLang.selectedIndex].text;
+  // Mengambil value/kode bahasa target (misal: 'es', 'en', 'id')
+  const targetCode = targetLang.value;
 
   outputText.innerText = "Menerjemahkan...";
 
   try {
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+    const response = await fetch("https://api.translateapi.ai/api/v1/translate/", {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Authorization': `Bearer ${TRANSLATE_API_KEY}`,
+        'Content-Type': 'application/json' 
+      },
       body: JSON.stringify({
-        contents: [{
-          parts: [{
-            text: `Terjemahkan teks berikut dari bahasa ${sourceName} ke bahasa ${targetName}. Berikan HANYA hasil terjemahannya tanpa penjelasan tambahan:\n\n"${text}"`
-          }]
-        }]
+        text: text,
+        target_language: targetCode
       })
     });
 
     const data = await response.json();
-    if (data.candidates && data.candidates[0].content.parts[0].text) {
-      outputText.innerText = data.candidates[0].content.parts[0].text.trim();
+    
+    // Asumsi response mengembalikan properti 'translated_text' atau disesuaikan dengan skema API
+    if (data && (data.translated_text || data.result)) {
+      outputText.innerText = data.translated_text || data.result;
     } else {
-      outputText.innerText = "Gagal menerjemahkan. Periksa API Key kamu.";
+      outputText.innerText = "Gagal menerjemahkan. Periksa API Key atau Format Response.";
     }
   } catch (error) {
     console.error(error);
-    outputText.innerText = "Terjadi kesalahan saat terhubung ke AI.";
+    outputText.innerText = "Terjadi kesalahan saat terhubung ke API.";
   }
 });
 
@@ -125,49 +127,3 @@ function copyToClipboard(text) {
 copyInputBtn.addEventListener('click', () => copyToClipboard(inputText.value));
 copyOutputBtn.addEventListener('click', () => copyToClipboard(outputText.innerText));
 copyOutputBtn2.addEventListener('click', () => copyToClipboard(outputText.innerText));
-
-// 7. Fitur Terjemahan Gambar (Menggunakan Gemini Vision)
-imageInput.addEventListener('change', async (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-  reader.onload = async () => {
-    const base64Data = reader.result.split(',')[1];
-    const sourceName = sourceLang.options[sourceLang.selectedIndex].text;
-    const targetName = targetLang.options[targetLang.selectedIndex].text;
-
-    outputText.innerText = "Membaca gambar & menerjemahkan...";
-
-    try {
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{
-            parts: [
-              { text: `Ekstrak teks dalam gambar ini dan terjemahkan dari ${sourceName} ke ${targetName}. Berikan HANYA hasil terjemahannya.` },
-              {
-                inline_data: {
-                  mime_type: file.type,
-                  data: base64Data
-                }
-              }
-            ]
-          }]
-        })
-      });
-
-      const data = await response.json();
-      if (data.candidates && data.candidates[0].content.parts[0].text) {
-        outputText.innerText = data.candidates[0].content.parts[0].text.trim();
-      } else {
-        outputText.innerText = "Gagal memproses gambar.";
-      }
-    } catch (err) {
-      console.error(err);
-      outputText.innerText = "Terjadi kesalahan saat memproses gambar.";
-    }
-  };
-  reader.readAsDataURL(file);
-});
